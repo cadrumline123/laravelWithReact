@@ -9,8 +9,8 @@ class ZomatoAPiProvider extends ServiceProvider
 {
     //cuisineId 82 represents pizza
     //$cityId 1051 represents oklahoma city
-    public static function getPizzaPlacesInArea($entityId = 1051, $entityType = "city", $mileRadius = 10, $cuisineId = 82){
-      $response = self::callZomato($entityId, $entityType, $mileRadius, $cuisineId);
+    public static function getPizzaPlacesInArea($entityId = 1051, $entityType = "city", $mileRadius = 5, $cuisineId = 82){
+      $response = self::zomatoSearch($entityId, $entityType, $mileRadius, $cuisineId);
 
       if($response->getStatusCode() == 200){
         return self::generatePizzaPlaces($response->getBody());
@@ -20,9 +20,11 @@ class ZomatoAPiProvider extends ServiceProvider
       }
     }
 
-    private static function callZomato($entityId, $entityType, $mileRadius, $cuisineId){
+    private static function zomatoSearch($entityId, $entityType, $mileRadius, $cuisineId){
       $meters = $mileRadius * 1609; //math
-      
+
+      // $locationLatitude =
+      // $locationLongitude =
       //// TODO: Should be moved to a config or something
       $requestUrl = "https://developers.zomato.com/api/v2.1/search";
 
@@ -36,6 +38,24 @@ class ZomatoAPiProvider extends ServiceProvider
         'cuisines' => $cuisineId,
         'sort' => 'rating',
         'order' => 'desc'
+      ];
+
+      $response = $client->request('GET', $requestUrl, [
+        'query' => $queryStrings,
+        'headers' => $headers
+      ]);
+
+      return $response;
+    }
+
+    private static function zomatoLocationDetails($entityId = 1051, $entityType = "city"){
+      $requestUrl = "https://developers.zomato.com/api/v2.1/location_details";
+
+      $client = new \GuzzleHttp\Client();
+      $headers = ['Accept' => 'application/json', 'user-key' => 'd4f7bd193f51c76df0197b689562476e'];
+      $queryStrings = [
+        'entity_id' => $entityId,
+        'entity_type' => $entityType
       ];
 
       $response = $client->request('GET', $requestUrl, [

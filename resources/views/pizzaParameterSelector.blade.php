@@ -1,4 +1,4 @@
-<form action="/getPizzaPlaces" method="post">
+<form id='getPizzaPlaces' action="/getPizzaPlaces" method="post">
   {{csrf_field()}}
   <span>Choose pizza places in</span>
   <select name="citySelector">
@@ -7,6 +7,7 @@
   </select>
   <span> in a </span>
   <select name="distanceSelector">
+    <option value="1">1</option>
     <option value="5">5</option>
     <option value="10">10</option>
   </select>

@@ -5,7 +5,7 @@
 
 html,
 body {
-  background-color: #fff;
+  background-image: url("https://previews.123rf.com/images/bbgreg/bbgreg1705/bbgreg170500016/77652949-pizza-slice-seamless-pattern-vector-background-fast-food.jpg");
   color: #636b6f;
   font-family: "Nunito", sans-serif;
   font-weight: 200;
@@ -34,6 +34,7 @@ body {
 }
 
 .content {
+  background-color: #fff;
   text-align: center;
 }
 
@@ -55,5 +56,17 @@ body {
   margin-bottom: 30px;
 }
 
+#getPizzaPlaces {
+  margin-bottom: 40px;
+}
+
 .pizzaPlaceSelection {
+  margin-bottom: 15px;
+}
+.pizzaPlaceSelection > p {
+  margin: 2px 0 2px 0;
+}
+
+.pizzaPlaceSelection > p:first-child {
+  font-weight: bold;
 }
